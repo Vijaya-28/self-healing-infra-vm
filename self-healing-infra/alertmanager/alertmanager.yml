@@ -1,0 +1,12 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: 'self_heal_webhook'
+  repeat_interval: 30m
+
+receivers:
+  - name: 'self_heal_webhook'
+    webhook_configs:
+      - url: 'http://host.docker.internal:5001/webhook'
+        send_resolved: true
