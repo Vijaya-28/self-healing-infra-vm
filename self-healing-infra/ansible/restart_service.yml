@@ -1,11 +1,4 @@
 - hosts: localhost
   tasks:
-    - name: Stop Nginx container
-      docker_container:
-        name: shi_nginx
-        state: stopped
-
-    - name: Start Nginx container
-      docker_container:
-        name: shi_nginx
-        state: started
+    - name: Restart Nginx container
+      command: docker restart shi_nginx
