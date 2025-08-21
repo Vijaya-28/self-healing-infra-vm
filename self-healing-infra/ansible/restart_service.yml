@@ -1,19 +1,11 @@
----
-- name: Self-heal action: restart NGINX service on VM
-  hosts: localhost
-  become: true
-  gather_facts: false
+- hosts: localhost
   tasks:
-    - name: Restart NGINX service
-      ansible.builtin.service:
-        name: nginx
-        state: restarted
+    - name: Stop Nginx container
+      docker_container:
+        name: shi_nginx
+        state: stopped
 
-    - name: Check NGINX status
-      ansible.builtin.command: systemctl is-active nginx
-      register: nginx_status
-      changed_when: false
-
-    - name: Show NGINX service status
-      ansible.builtin.debug:
-        msg: "NGINX is currently: {{ nginx_status.stdout }}"
+    - name: Start Nginx container
+      docker_container:
+        name: shi_nginx
+        state: started
